@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <title>Catálogo de Receitas</title>
+</head>
+<body onload="preencheCatalogo()">
+    
+    <h1 style="background-color:rgb(238, 74, 96); color: aliceblue; 
+                margin:0px; margin-bottom: 7px; padding: 12px;"
+    >Catálogo Receitas</h1>
+    <div class="container-fluid bg-warning">
+        <div class="d-flex flex-wrap" id="pnlCatalogo">
+            <div id="pnlCatalogo" class="d-flex"></div>
+        </div>
+    </div>
+
+    <script>
+
+        const receitas = [
+            {
+                "titulo": "Milk-shake de chocolate",
+                "imagem": "chocolate.jpg",
+                "preparo": "No liquidificador, coloque o sorvete, o leite e a baunilha. Bata ate misturar os ingredientes e ficar bem cremoso. Espalhe a cobertura na taça, colocando a mistura em seguida. Finalize com chantilly por cima da mistura",
+                "ingredientes": [
+                    "3 bolas de sorvete de chocolate",
+                    "1 colher (chá) de essência de baunilha",
+                    "2 e 1/2 xícaras de leite gelado",
+                    "cobertura de chocolate",
+                    "chantilly",
+                ],
+            },
+            {
+                "titulo": "Milk-shake de morango",
+                "imagem": "morango.jpg",
+                "preparo": "Lave bem os morangos e retire os cabinhos. No liquidificador, coloque os morangos, o leite, o gelo e o acuçar. Quando estiver bem cremoso coloque a mistura no copo. Finalize com chantilly por cima e um morango no topo.",
+                "ingredientes": [
+                    "1 caixinha de morango",
+                    "1 litro de leite gelado",
+                    "4 colheres (sopa) de açúcar mascavo",
+                    "cubos gelo",
+                    "chantilly",
+                ],
+            },
+            {
+                "titulo": "Milk-shake de Menta",
+                "imagem": "menta.jpg",
+                "preparo": "Bata o sorvete e o xarope no liquidificador. Quando estiver cremoso adicione o corante e bata novamente. Espalhe a cobertura na taça, colocando a mistura em seguida. Finalize com chantilly por cima da mistura",
+                "ingredientes": [
+                    "650ml de sorvete de baunilha",
+                    "2 colher de xarope de menta",
+                    "Cobertura de menta",
+                    "3 gotas de corante verde",
+                    "chantilly",                
+                ],
+            },
+            ]
+
+            function getListaIngredientes(receita) {
+                return `<ul>${receita.ingredientes.map(ingrediente => 
+                    `<li>${ingrediente}</li>`).join('')}</ul>`;
+            }
+
+    
+            function getCard(receita) {
+            return `
+                <div class="card" style="width: 250px; margin:10px; background-color: bisque">
+                <img src="${receita.imagem}" class="card-img-top" alt="${receita.titulo}">
+                <div class="card-body">
+                    <h5 class="card-title" style="text-align: center;">${receita.titulo}</h5>
+                    <div class="card-text">
+                    ${getListaIngredientes(receita)}
+                    <hr>
+                    <p>${receita.preparo}</p>
+                    </div>
+                </div>
+                </div>
+            `;
+            }
+
+            function preencheCatalogo() {
+            const pnlCatalogo = document.getElementById('pnlCatalogo');
+            const htmlReceitas = receitas.map(receita => getCard(receita)).join('');
+            pnlCatalogo.innerHTML = htmlReceitas;
+            }
+    
+    </script>
+    
+</body>
+</html>

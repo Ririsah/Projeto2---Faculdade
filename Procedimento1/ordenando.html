@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="ordenando.js"></script>
+    <title>Ordenando Valores</title>
+
+</head>
+<body>
+    
+    <div class="container p-1">
+        <h1>Ordenando Valores</h1>
+        <div>
+            <div class="mb-3">
+                <label for="valor" class="form-label">Valor</label>
+                <input type="number" id="valor" class="form-control" required>
+            </div>
+        
+            <div class="mb-3">
+                <button type="button" onclick="add()" class="btn btn-primary">Adicionar</button>
+            </div>
+            <hr>
+            <div class="mb-3">
+                <select id="escolha" class="form-select">
+                    <option value="bubble_sort">Blubble Sort</option>
+                    <option value="selection">Selection</option>
+                    <option value="quick_sort">Quick Sort</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <button type="button" onclick="ordenar()" class="btn btn-primary">Ordenar</button>
+                <button type="button" onclick="misturar()" class="btn btn-primary">Misturar</button>
+            </div>
+            <hr>
+          </div>
+          <ul id="valores"></ul>
+    </div>
+
+    <script>
+
+        vetor = [];
+
+        function lista_vetor() {
+            const ul = document.getElementById("valores");
+            ul.innerHTML = "";
+            vetor.map(function (elem) {
+                let li = document.createElement("li");
+                li.appendChild(document.createTextNode(elem));
+                ul.appendChild(li);
+            });
+        }
+
+        function add() {
+            console.log("add");
+            const valor = document.getElementById("valor");
+
+            if (valor.value == '') {
+                return
+            }
+
+            if (vetor.includes(eval(valor.value)) == false) {
+                vetor.push(eval(valor.value));
+            };
+            lista_vetor();
+            valor.value = '';
+
+
+
+        };
+
+        function ordenar() {
+            const escolhido = document.getElementById("escolha");
+            const valor_selecionado = escolhido.value;
+
+            switch (valor_selecionado) {
+                case "bubble_sort":
+                    vetor = bubble_sort(vetor);
+                    lista_vetor();
+                    break;
+                case "selection":
+                    vetor = selection_sort(vetor);
+                    lista_vetor();
+                    break;
+                case "quick_sort":
+                    vetor = quick_sort(vetor, 0, vetor.length - 1);
+                    lista_vetor();
+                    break;
+            };
+        };
+
+        function misturar() {
+            vetor = shuffle(vetor, vetor.length);
+            lista_vetor();
+        };
+
+    </script>
+    
+</body>
+</html>
